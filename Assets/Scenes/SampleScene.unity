@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,7 +172,7 @@ MonoBehaviour:
   Payload:
     Data: 0a150884d4a5b796d4bba4b201109f81a8faa7d9feb62f18f2abe2c490a088032a280a160895e79dd6b8f5aca2c20110a0c5849d88cb89adba0112090a001205250000803f1d0000803f32190a05250000803f11000000a06a823a401900000000a00e5440
   MeshContainer: {fileID: 1787489755}
-  IncludeMeshInBuild: 0
+  IncludeMeshInBuild: 1
   GpsLocation:
     lat_degrees: 26.509437561035156
     lng_degrees: 80.22852325439453
@@ -971,7 +971,7 @@ GameObject:
   - component: {fileID: 1787489757}
   m_Layer: 0
   m_Name: MeshContainer
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
