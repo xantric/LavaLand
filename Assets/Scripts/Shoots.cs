@@ -8,6 +8,8 @@ public class Shoots : MonoBehaviour
     RaycastHit hit;
     public GameObject projectile;
     public float shootForce = 700.0f;
+    public float speed = 10f;
+//    public VisualEffect vfx;
 
     // Update is called once per frame
     void Update()
@@ -17,16 +19,19 @@ public class Shoots : MonoBehaviour
 
             GameObject bullet = Instantiate(projectile, arCamera.position, arCamera.rotation);
             bullet.GetComponent<Rigidbody>().AddForce(arCamera.forward*shootForce);
-            Shoot();
+            
+            if(Physics.Raycast(arCamera.position, arCamera.forward, out hit))
+            {
+                float t = hit.distance / speed;
+  //              vfx.SendEvent("OnPlay");
+                Invoke("Shoot", t);
+            }
         }
         
     }
 
     void Shoot()
     {
-        if(Physics.Raycast(arCamera.position, arCamera.forward, out hit))
-        {
-            //
-        }
+            Destroy(hit.transform.gameObject);
     }
 }
