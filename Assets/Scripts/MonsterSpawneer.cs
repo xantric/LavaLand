@@ -53,7 +53,7 @@ public class MonsterSpawneer : MonoBehaviour
         for(int i = 0; i < waves[currentWave].GetMonsterSpawnList().Length; i++)
         {
             GameObject ene = Instantiate(waves[currentWave].GetMonsterSpawnList()[i], FindSpawnLoc(), Quaternion.identity);
-            StartCoroutine(FollowPlayer(ene));
+            // StartCoroutine(FollowPlayer(ene));
         }
         Debug.Log("Instantiated");
     }

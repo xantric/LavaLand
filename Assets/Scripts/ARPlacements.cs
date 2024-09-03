@@ -1,89 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
 public class ARPlacements : MonoBehaviour
 {
+    [System.Serializable]
+    public class WaveContent
+    {
+        [SerializeField][NonReorderable] GameObject[] monsterSpawner;
+        public GameObject[] GetMonsterSpawnList()
+        {
+            return monsterSpawner;
+        }
+    }
+    [SerializeField][NonReorderable] WaveContent[] waves;
+    [SerializeField] private GameObject prefab;
+    private List<GameObject> spawnedPrefabs = new List<GameObject>();
+    private ARRaycastManager raycastManager;
+
+    public Transform spawnLocation;
+    float randomRange = 1f;
+    int maxWaves = 3;
+    public Transform playerLocation;
+    public TextMeshProUGUI textMeshProUGUI;
+    public float speed = 1.0f;
+    public float stopDistance = 5.0f;
     // Start is called before the first frame update
-    private ARRaycastManager arRaycastManager;
-    [SerializeField] private GameObject instantiatedObject;
-    private List<GameObject> instantiatedObjects = new();
-    private Camera mainCam;
-
-
-
-    private void Start()
+    void Start()
     {
-        mainCam = FindObjectOfType<Camera>();
-        arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        raycastManager = GetComponent<ARRaycastManager>();
+        StartCoroutine(SpawnWavesWithDelay());
+
+    }
+    IEnumerator SpawnWavesWithDelay()
+    {
+        while (maxWaves > 0)
+        {
+            spawnWave();
+            maxWaves--;
+            yield return new WaitForSeconds(10);
+        }
+        
     }
 
-    // Update is called once per frame
-    void Update()
+    
+
+    //void ARRaycasting(Vector2 pos)
+    //{
+    //    List<ARRaycastHit> hits = new();
+
+    //    if (raycastManager.Raycast(pos, hits, TrackableType.PlaneEstimated))
+    //    {
+    //        Pose pose = hits[0].pose;
+    //        ARInstantiation(pose.position, pose.rotation);
+    //    }
+    //}
+
+    //void ARInstantiation(Vector3 pos, Quaternion rot)
+    //{
+    //    spawnedPrefabs.Add(Instantiate(prefab, pos, rot));
+    //}
+
+    Vector3 FindSpawnLoc(Transform spawner)
     {
-#if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                Debug.Log("UI Hit was recognized");
-                return;
-            }
-            TouchToRay(Input.mousePosition);
-        }
-#endif
-#if UNITY_IOS || UNITY_ANDROID
+        Vector3 SpawnPos;
+        float xLoc = Random.Range(-randomRange, randomRange) + spawner.position.x;
+        float zLoc = Random.Range(-randomRange, randomRange) + spawner.position.z;
+        float yLoc = spawner.position.y;
 
-        if (Input.touchCount > 0 && Input.touchCount < 2 &&
-            Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            PointerEventData pointerData = new PointerEventData(EventSystem.current);
-            pointerData.position = touch.position;
-
-            List<RaycastResult> results = new List<RaycastResult>();
-
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            if (results.Count > 0)
-            {
-                // We hit a UI element
-                Debug.Log("We hit an UI Element");
-                return;
-            }
-
-            Debug.Log("Touch detected, fingerId: " + touch.fingerId);
-
-            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            {
-                Debug.Log("Is Pointer Over GOJ, No placement ");
-                return;
-            }
-            TouchToRay(touch.position);
-        }
-#endif
+        SpawnPos = new Vector3(xLoc, yLoc, zLoc);
+        Debug.Log("Found spawn location");
+        return SpawnPos;
     }
 
-    void TouchToRay(Vector3 touch)
+    public void spawnWave()
     {
-        Ray ray = mainCam.ScreenPointToRay(touch);
-        List<ARRaycastHit> hits = new();
+        Debug.Log("Hello");
+        textMeshProUGUI.text = "Wave spawned: " + maxWaves.ToString(); 
+        Vector3 spawnposition = FindSpawnLoc(spawnLocation);
+        GameObject fireflies = Instantiate(prefab, spawnposition, Quaternion.identity);
+        spawnedPrefabs.Add(fireflies);
+    }
 
-        arRaycastManager.raycastPrefab = instantiatedObject;
-        arRaycastManager.Raycast(ray, hits, TrackableType.PlaneEstimated);
-
-        Debug.Log("ShootingRay");
-        //
-        if (hits.Count > 0)
+    public void Update()
+    {
+        MoveEnemiesTowardsPlayer();
+    }
+    void MoveEnemiesTowardsPlayer()
+    {
+        foreach(GameObject enemy in spawnedPrefabs)
         {
-            GameObject placeObject = Instantiate(instantiatedObject);
-            placeObject.transform.position = hits[0].pose.position;
-            placeObject.transform.rotation = hits[0].pose.rotation;
-            instantiatedObjects.Add(placeObject);
+            if(enemy != null)
+            {
+                float distance = Vector3.Distance(enemy.transform.position, playerLocation.position);
+                if (distance > stopDistance)
+                {
+                    Vector3 direction = (playerLocation.position - enemy.transform.position).normalized;
+
+                    enemy.transform.position += direction * speed * Time.deltaTime;
+
+                    // Optionally, rotate the enemy to face the player
+                    enemy.transform.LookAt(new Vector3(playerLocation.position.x, enemy.transform.position.y, playerLocation.position.z));
+
+                }
+                
+            }
         }
     }
+
 }

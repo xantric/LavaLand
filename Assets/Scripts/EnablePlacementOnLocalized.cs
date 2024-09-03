@@ -1,39 +1,49 @@
-using Niantic.Lightship.AR.LocationAR;
-using Niantic.Lightship.AR.PersistentAnchors;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Niantic.Lightship.AR.LocationAR;
+using Niantic.Lightship.AR.PersistentAnchors;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 public class EnablePlacementOnLocalized : MonoBehaviour
 {
-    ARLocationManager _arLocationManager;
-    ARPlaneManager arPlaneManager;
-    ARPlacements arPlacements;
+    private ARLocationManager _arLocationManager;
+
+    private ARPlaneManager _planeManager;
+
+    private ARPlacements _arPlacements;
     // Start is called before the first frame update
     void Start()
     {
-        _arLocationManager = GetComponent<ARLocationManager>();
-        arPlaneManager = FindObjectOfType<ARPlaneManager>();
-        arPlacements = FindObjectOfType<ARPlacements>();
+        _arLocationManager = FindObjectOfType<ARLocationManager>();
+        _planeManager = FindObjectOfType<ARPlaneManager>();
+        _arPlacements = FindObjectOfType<ARPlacements>();
 
-        arPlaneManager.enabled = false;
-        arPlacements.enabled = false;
+        _planeManager.enabled = false;
+       //  _arPlacements.enabled = false;
 
-        _arLocationManager.locationTrackingStateChanged += OnLocalised;
+        _arLocationManager.locationTrackingStateChanged += OnLocalized;
+
     }
 
-    void OnLocalised(ARLocationTrackedEventArgs eventArgs)
+    private void OnDestroy()
+    {
+        _arLocationManager.locationTrackingStateChanged -= OnLocalized;
+    }
+
+    void OnLocalized(ARLocationTrackedEventArgs eventArgs)
     {
         if (eventArgs.Tracking)
         {
-            arPlaneManager.enabled = true;
-            arPlacements.enabled = true;
+            _planeManager.enabled = true;
+            _arPlacements.enabled = true;
         }
-        else 
+        else
         {
-            arPlaneManager.enabled = false;
-            arPlacements.enabled = false;
+            _planeManager.enabled = false;
+            _arPlacements.enabled = false;
         }
+
     }
 }
