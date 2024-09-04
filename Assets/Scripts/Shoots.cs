@@ -5,31 +5,37 @@ using UnityEngine;
 public class Shoots : MonoBehaviour
 {
     public Transform arCamera;
+    public float speed = 100;
     RaycastHit hit;
-    public GameObject projectile;
-    public float shootForce = 700.0f;
-    public float speed = 10f;
-//    public VisualEffect vfx;
+    public AudioSource audioSource;
+    public AudioClip shootAudio;
+    public GameObject tip;
 
+    void Start()
+    {
+        tip.SetActive(false);
+    }
     // Update is called once per frame
     void Update()
     {
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-
-            GameObject bullet = Instantiate(projectile, arCamera.position, arCamera.rotation);
-            bullet.GetComponent<Rigidbody>().AddForce(arCamera.forward*shootForce);
-            
+            tip.SetActive(true);
+            audioSource.PlayOneShot(shootAudio);
+            Invoke("Clear", 1);
             if(Physics.Raycast(arCamera.position, arCamera.forward, out hit))
             {
                 float t = hit.distance / speed;
-  //              vfx.SendEvent("OnPlay");
                 Invoke("Shoot", t);
             }
         }
         
     }
 
+    void Clear()
+    {
+        tip.SetActive(false);
+    }
     void Shoot()
     {
             Destroy(hit.transform.gameObject);
