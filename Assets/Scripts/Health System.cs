@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class HealthSystem : MonoBehaviour
     float length, width;
     public GameObject healthBar;
     public CameraShake cameraShake;
+    public ARPlacements placements;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,13 +30,10 @@ public class HealthSystem : MonoBehaviour
         {
             health -= damage;
             Destroy(other.gameObject);
-            StartCoroutine(cameraShake.Shake(.15f,.4f));
+            placements.enemiesDestroyed++;
+            
         }
-        if(health <= 0)
-        {
-            //game lost
-            SceneManager.LoadScene(3);
-        }
+        
 
     }
     void Update()
@@ -42,9 +41,10 @@ public class HealthSystem : MonoBehaviour
         t += Time.deltaTime;
 
         healthBar.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(length*health, width) ;
-        if(t > 120)
+        if (health <= 0)
         {
-            //game won
+            //game lost
+            SceneManager.LoadScene(3);
         }
     }
 }

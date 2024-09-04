@@ -13,14 +13,14 @@ public class ARPlacements : MonoBehaviour
     {
         [SerializeField][NonReorderable] GameObject[] monsterSpawner;
         [SerializeField]
-        int timeBetweenEnemySpawns;
+        float timeBetweenEnemySpawns;
         [SerializeField]
         int numberOfEnemyToSpawn;
         public GameObject[] GetMonsterSpawnList()
         {
             return monsterSpawner;
         }
-        public int getTimeBetweenSpawns()
+        public float getTimeBetweenSpawns()
         {
             return timeBetweenEnemySpawns;
         }
@@ -49,19 +49,17 @@ public class ARPlacements : MonoBehaviour
 
     }
     int waveCounter;
+    public int enemiesDestroyed = 0;
+    public int currentWave = 0;
     IEnumerator SpawnWavesWithDelay()
     {
-        maxWaves = waves.Length;
-        for(int i = 0; i < maxWaves; i++)
+        for(int j = 0; j < waves[currentWave].getnumberOfEnemy(); j++)
         {
-            for(int j = 0; j < waves[i].getnumberOfEnemy(); j++)
-            {
-                int random = Random.Range(0, waves[i].GetMonsterSpawnList().Length);
-                Spawn(waves[i].GetMonsterSpawnList()[random], i+1);
-                waveCounter = i + 1;
-                yield return new WaitForSeconds(waves[i].getTimeBetweenSpawns());
-            }
+            int random = Random.Range(0, waves[currentWave].GetMonsterSpawnList().Length);
+            Spawn(waves[currentWave].GetMonsterSpawnList()[random], currentWave+1);
+            yield return new WaitForSeconds(waves[currentWave].getTimeBetweenSpawns());
         }
+        
         
     }
 
@@ -89,6 +87,17 @@ public class ARPlacements : MonoBehaviour
     public void Update()
     {
         MoveEnemiesTowardsPlayer();
+        if(enemiesDestroyed >= waves[currentWave].getnumberOfEnemy() && currentWave == waves.Length - 1)
+        {
+            SceneManager.LoadScene(2);
+        }
+        else if (enemiesDestroyed >= waves[currentWave].getnumberOfEnemy())
+        {
+            enemiesDestroyed = 0;
+            currentWave++;
+            StartCoroutine(SpawnWavesWithDelay());
+        }
+
     }
     void MoveEnemiesTowardsPlayer()
     {
@@ -109,10 +118,7 @@ public class ARPlacements : MonoBehaviour
                 }
                 
             }
-            else if(enemy == null && waveCounter == 4)
-            {
-                SceneManager.LoadScene(2);
-            }
+            
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Shoots : MonoBehaviour
@@ -10,7 +11,8 @@ public class Shoots : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip shootAudio;
     public GameObject tip;
-
+    public ARPlacements placements;
+    public TextMeshProUGUI textMeshProUGUI;
     void Start()
     {
         tip.SetActive(false);
@@ -38,6 +40,8 @@ public class Shoots : MonoBehaviour
     }
     void Shoot()
     {
-            Destroy(hit.transform.gameObject);
+        Destroy(hit.transform.gameObject);
+        placements.enemiesDestroyed++;
+        textMeshProUGUI.text = placements.enemiesDestroyed.ToString();
     }
 }
