@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -47,6 +48,7 @@ public class ARPlacements : MonoBehaviour
         StartCoroutine(SpawnWavesWithDelay());
 
     }
+    int waveCounter;
     IEnumerator SpawnWavesWithDelay()
     {
         maxWaves = waves.Length;
@@ -54,7 +56,9 @@ public class ARPlacements : MonoBehaviour
         {
             for(int j = 0; j < waves[i].getnumberOfEnemy(); j++)
             {
-                Spawn(waves[i].GetMonsterSpawnList()[0], i+1);
+                int random = Random.Range(0, waves[i].GetMonsterSpawnList().Length);
+                Spawn(waves[i].GetMonsterSpawnList()[random], i+1);
+                waveCounter = i + 1;
                 yield return new WaitForSeconds(waves[i].getTimeBetweenSpawns());
             }
         }
@@ -104,6 +108,10 @@ public class ARPlacements : MonoBehaviour
 
                 }
                 
+            }
+            else if(enemy == null && waveCounter == 4)
+            {
+                SceneManager.LoadScene(2);
             }
         }
     }

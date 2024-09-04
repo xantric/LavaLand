@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class UI : MonoBehaviour
 {
     public GameObject pauseWindow;
+
     void Start()
     {
         pauseWindow.SetActive(false);
@@ -23,6 +24,7 @@ public class UI : MonoBehaviour
     }
     public void ExitPause()
     {
+        Time.timeScale = 1;
         int curr = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(curr - 1);
     }

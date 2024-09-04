@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/UI and Main Menu Scene/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 68eebedd1d79e4ee6a73d6a71a27dce3
   - enabled: 1
     path: Assets/Scenes/Game Play.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/win.unity
+    guid: 7d1610e88fca3284590cc7993ed4ab88
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 3e44686829b4e0e40aa79a7a6b546d2c
   m_configObjects:
     Niantic.Lightship.AR.LightshipSettings: {fileID: 11400000, guid: b33b4f7c5f031ee41b181689ff8e4fde, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 35250ac5066ef4c478fe9149d4468974, type: 2}

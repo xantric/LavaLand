@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
@@ -10,6 +11,7 @@ public class HealthSystem : MonoBehaviour
     public float damage = 20;
     float length, width;
     public GameObject healthBar;
+    public CameraShake cameraShake;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +28,12 @@ public class HealthSystem : MonoBehaviour
         {
             health -= damage;
             Destroy(other.gameObject);
+            StartCoroutine(cameraShake.Shake(.15f,.4f));
         }
         if(health <= 0)
         {
             //game lost
+            SceneManager.LoadScene(3);
         }
 
     }

@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     public GameObject InstructionsPanel;
+    public GameObject MMPanel;
     public AudioSource audioSource;
+    public AudioSource BGambience;
+    public FadeInOut fade;
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -14,12 +17,14 @@ public class MainMenuManager : MonoBehaviour
     }
     public void Back(){
         InstructionsPanel.SetActive(false);
+        MMPanel.SetActive(true);
         audioSource.Play();
 
     }
     public void LoadInstructions()
     {
         InstructionsPanel.SetActive(true);
+        MMPanel.SetActive(false);
         audioSource.Play();
     }
     public void QuitGame()
@@ -32,5 +37,8 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(0);
         audioSource.Play();
     }
-
+    private void Start()
+    {
+        BGambience.Play();
+    }
 }
