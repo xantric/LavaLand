@@ -11,9 +11,21 @@ public class ARPlacements : MonoBehaviour
     public class WaveContent
     {
         [SerializeField][NonReorderable] GameObject[] monsterSpawner;
+        [SerializeField]
+        int timeBetweenEnemySpawns;
+        [SerializeField]
+        int numberOfEnemyToSpawn;
         public GameObject[] GetMonsterSpawnList()
         {
             return monsterSpawner;
+        }
+        public int getTimeBetweenSpawns()
+        {
+            return timeBetweenEnemySpawns;
+        }
+        public int getnumberOfEnemy()
+        {
+            return numberOfEnemyToSpawn;
         }
     }
     [SerializeField][NonReorderable] WaveContent[] waves;
@@ -37,32 +49,26 @@ public class ARPlacements : MonoBehaviour
     }
     IEnumerator SpawnWavesWithDelay()
     {
-        while (maxWaves > 0)
+        maxWaves = waves.Length;
+        for(int i = 0; i < maxWaves; i++)
         {
-            spawnWave();
-            maxWaves--;
-            yield return new WaitForSeconds(5);
+            for(int j = 0; j < waves[i].getnumberOfEnemy(); j++)
+            {
+                Spawn(waves[i].GetMonsterSpawnList()[0], i+1);
+                yield return new WaitForSeconds(waves[i].getTimeBetweenSpawns());
+            }
         }
         
     }
 
+    public void Spawn(GameObject obj, int wave)
+    {
+        textMeshProUGUI.text = "Wave spawned: " + wave.ToString() + "/4";
+        Vector3 spawnposition = FindSpawnLoc(spawnLocation);
+        GameObject fireflies = Instantiate(obj, spawnposition, Quaternion.identity);
+        spawnedPrefabs.Add(fireflies);
+    }
     
-
-    //void ARRaycasting(Vector2 pos)
-    //{
-    //    List<ARRaycastHit> hits = new();
-
-    //    if (raycastManager.Raycast(pos, hits, TrackableType.PlaneEstimated))
-    //    {
-    //        Pose pose = hits[0].pose;
-    //        ARInstantiation(pose.position, pose.rotation);
-    //    }
-    //}
-
-    //void ARInstantiation(Vector3 pos, Quaternion rot)
-    //{
-    //    spawnedPrefabs.Add(Instantiate(prefab, pos, rot));
-    //}
 
     Vector3 FindSpawnLoc(Transform spawner)
     {
@@ -74,15 +80,6 @@ public class ARPlacements : MonoBehaviour
         SpawnPos = new Vector3(xLoc, yLoc, zLoc);
         Debug.Log("Found spawn location");
         return SpawnPos;
-    }
-
-    public void spawnWave()
-    {
-        Debug.Log("Hello");
-        textMeshProUGUI.text = "Wave spawned: " + maxWaves.ToString(); 
-        Vector3 spawnposition = FindSpawnLoc(spawnLocation);
-        GameObject fireflies = Instantiate(prefab, spawnposition, Quaternion.identity);
-        spawnedPrefabs.Add(fireflies);
     }
 
     public void Update()

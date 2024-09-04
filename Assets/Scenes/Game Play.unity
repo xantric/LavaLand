@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -361,7 +361,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2103708305}
   m_Father: {fileID: 539840496}
@@ -911,7 +911,7 @@ RectTransform:
   m_GameObject: {fileID: 756070808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 886098831}
@@ -2701,7 +2701,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee71523e05f97044c976bdcc8676c4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves: []
+  waves:
+  - monsterSpawner:
+    - {fileID: 8876208876934854122, guid: b0ed64fd649034d2b88aafa7b2e05a0e, type: 3}
+    timeBetweenEnemySpawns: 3
+    numberOfEnemyToSpawn: 5
+  - monsterSpawner:
+    - {fileID: 8876208876934854122, guid: b0ed64fd649034d2b88aafa7b2e05a0e, type: 3}
+    timeBetweenEnemySpawns: 2
+    numberOfEnemyToSpawn: 6
+  - monsterSpawner:
+    - {fileID: 8876208876934854122, guid: b0ed64fd649034d2b88aafa7b2e05a0e, type: 3}
+    timeBetweenEnemySpawns: 1
+    numberOfEnemyToSpawn: 8
+  - monsterSpawner:
+    - {fileID: 8876208876934854122, guid: b0ed64fd649034d2b88aafa7b2e05a0e, type: 3}
+    timeBetweenEnemySpawns: 1
+    numberOfEnemyToSpawn: 12
   prefab: {fileID: 8876208876934854122, guid: b0ed64fd649034d2b88aafa7b2e05a0e, type: 3}
   spawnLocation: {fileID: 2015643756}
   playerLocation: {fileID: 1447635400}
