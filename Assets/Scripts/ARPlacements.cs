@@ -41,7 +41,7 @@ public class ARPlacements : MonoBehaviour
         {
             spawnWave();
             maxWaves--;
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(5);
         }
         
     }
