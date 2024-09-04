@@ -2,13 +2,13 @@
 
 ## **Table of Contents**
 
-1. Introduction
-2. Project Description
-3. Key Features
-4. Technologies Used
-5. Installation
-6. How to Play
-7. Contributors
+1. [Introduction](#introduction)
+2. [Project Description](#project-description)
+3. [Key Features](#key-features)
+4. [Technologies Used](#technologies-used)
+5. [Installations](#installations)
+6. [How to play](#how-to-play)
+7. [Contributors](#contributors)
 
 ## **Introduction**
 
