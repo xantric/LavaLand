@@ -27,8 +27,7 @@ public class Shoots : MonoBehaviour
             Invoke("Clear", 1);
             if(Physics.Raycast(arCamera.position, arCamera.forward, out hit))
             {
-                float t = hit.distance / speed;
-                Invoke("Shoot", t);
+                Shoot();
             }
         }
         
