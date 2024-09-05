@@ -8,7 +8,7 @@
 4. [Technologies Used](#technologies-used)
 5. [Installations](#installations)
 6. [How to play](#how-to-play)
-7. [Contributors](#contributors)
+7. [Our Team](#our-team)
 
 ## **Introduction**
 
@@ -48,11 +48,11 @@ To execute the source code of this project on your device, some additional packa
 - Aiming: Move your mobile device to aim at specific points in your surroundings. The game uses your device's camera to integrate with the real world, so look around and find your targets.
 - Shooting: Once you've aimed at your target, tap on the screen to shoot. Be quick and accurate!
 
-## **Contributors**
+## **Our Team**
 
-1. A
-2. A
-3. A
-4. A
-5. A
-6. A
+1. [Ishan Kamboj](https://github.com/xantric)
+2. [Rigved Koli](https://github.com/kolirigved)
+3. [Wasi Husain](https://github.com/Beginner10617)
+4. [Priyank Agnihotri](https://github.com/PRIXYANK)
+5. [Ujjwal Prakash](https://github.com/EUGENE-WOOLF)
+6. [Uday Charan](https://github.com/Gamerstudent)
