@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e8628fd7816503e4aa523e79ce05c995, type: 2}
   m_sharedMaterial: {fileID: 7565224825953110279, guid: e8628fd7816503e4aa523e79ce05c995, type: 2}
@@ -3105,19 +3105,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _queryRadius: 1000
   _privateARLocations:
-  - {fileID: 11400000, guid: eecb18ae9efd74c3fa2a50d1c155fc38, type: 2}
   - {fileID: 11400000, guid: 965491b8ded23bf4383c0e66bcfe3171, type: 2}
   _useCurrentLocation: 1
   _queryLatitude: 0
   _queryLongitude: 0
   _privateARLocalizationTargets:
-  - _identifier: 84B45056E86A48C9940BD91180076FBA
-    _name: Private Mesh - 84B45056E86A48C9940BD91180076FBA
-    _center:
-      lat_degrees: 26.509449005126953
-      lng_degrees: 80.22846221923828
-    _imageURL: 
-    _defaultAnchor: ChYIy6a31tn0kKbaARCRnavpiZSJjMwBGO7W+LLZpIgDKigKFgiE6cKyhd2apMkBEJSX5I6B8MG3ugESCQoAEgUlAACAPx0AAIA/MhkKBSUAAIA/EQAAAEBrgjpAGQAAACCgDlRA
   - _identifier: 894A3443972046348F43C162A0D98C08
     _name: Private Mesh - 894A3443972046348F43C162A0D98C08
     _center:

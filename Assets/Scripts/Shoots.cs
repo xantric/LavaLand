@@ -40,7 +40,11 @@ public class Shoots : MonoBehaviour
     void Shoot()
     {
         Destroy(hit.transform.gameObject);
-        placements.enemiesDestroyed++;
+        if(hit.transform.gameObject.tag == "Enemy")
+        {
+            placements.enemiesDestroyed++;
+        }
+        
         textMeshProUGUI.text = placements.enemiesDestroyed.ToString();
     }
 }
